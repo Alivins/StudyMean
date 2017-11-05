@@ -1,31 +1,45 @@
-/*var express = require('express');
-module.exports = function () {
-    var app = express();
-    require('../app/routes/index.server.routes.js')(app);
-    return app;
-}*/
 var express = require('express'),
     morgan = require('morgan'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
-    methodOverride = require('method-override')
+    methodOverride = require('method-override'),
+    config = require('./config'),
+    session = require('express-session'),
+    passport = require('passport'),
+    flash = require('connect-flash')
 ;
 
-module.exports = function() {
+module.exports = function () {
     var app = express();
 
-    if(process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development') {
         app.use(morgan('dev'));
     } else if (process.env.NODE_ENV === 'production') {
         app.use(compress());
     }
 
     app.use(bodyParser.urlencoded({
-        extended : true
+        extended: true
     }));
     app.use(bodyParser.json());
     app.use(methodOverride());
+
+    app.use(session({
+        saveUninitialized: true,
+        resave: true,
+        secret: config.sessionSecret
+    }));
+
+    app.set('views', './app/views');
+    app.set('view engine', 'ejs');
+    app.use(flash());
+    app.use(passport.initialize());
+    app.use(passport.session());
+
     require('../app/routes/index.server.routes.js')(app);
+    require('../app/routes/users.server.routes.js')(app);
+
+    app.use(express.static('./static'));
     return app;
 }
 
