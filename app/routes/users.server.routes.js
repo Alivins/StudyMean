@@ -3,8 +3,8 @@ var users = require('../../app/controllers/users.server.controller'),
 
 module.exports = function(app) {
     app.route('/signup')
-        .post(users.signup)
-        .get(users.renderSignup);
+        .get(users.renderSignup)
+        .post(users.signup);
 
 
     app.route('/signin')
@@ -19,6 +19,7 @@ module.exports = function(app) {
 
 
 };
+
 
 //express에서는 라우팅 정의에 포함된 부분 문자열 앞에 콜론을 추가하면 매개변수로 취급한다.
 //이 매개변수를 다른 라우팅 미들웨어를 수행하기 전에 먼저 app.param 메소드로 userId를 이용하여 userById메소드를 먼저 수행한다.

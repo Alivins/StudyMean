@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:ng="http://angular.org">
 <head>
     <title><%= title %></title>
 </head>
 <body>
-<% if (user) { %>
-<a href="/signout">Sign out</a>
-<% } else { %>
-<a href="/signup">Signup</a>
-<a href="/signin">Signin</a>
-<% } %>
+<!-- 제거
+        <% if (user) { %>
+          <a href = "/signout">Sign out</a>
+        <% } else { %>
+          <a href="/signup">Signup</a>
+          <a href="/signin">Signin</a>
+        <% } %>
+        -->
+
 <section ng-view></section>
 
 <script type="text/javascript">
@@ -21,6 +24,11 @@
 
 <script type="text/javascript" src="/lib/angular/angular.js"></script>
 <script type="text/javascript" src="/lib/angular-route/angular-route.js"></script>
+<script type="text/javascript" src="/lib/angular-resource/angular-resource.js"></script>
+<script type="text/javascript" src="/articles/articles.client.module.js"></script> <!-- 추가 -->
+<script type="text/javascript" src="/articles/controllers/articles.client.controller.js"></script> <!-- 추가 -->
+<script type="text/javascript" src="/articles/services/articles.client.service.js"></script> <!-- 추가 -->
+<script type="text/javascript" src="/articles/config/articles.client.routes.js"></script> <!-- 추가 -->
 
 <script type="text/javascript" src="/example/example.client.module.js"></script>
 <script type="text/javascript" src="/example/controllers/example.client.controller.js"></script>

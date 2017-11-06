@@ -71,6 +71,14 @@ exports.signout = function (req, res) {
     req.logout();
     res.redirect('/');
 };
+exports.requiresLogin = function (req, res, next) {
+    if (!req.isAuthenticated()) {
+        return res.status(401).send({
+            message: 'User is not logged in'
+        });
+    }
+    next();
+};
 
 // 먼저 mongoose 모듈을 사용해서 정의해 두었던 User 모델을 불러온다. 그리고 create 라는 컨트롤러 메소드를 만들어서
 // 새로운 User 인스턴스, 즉 User 에 정의된 스키마에 맞춘 새로운 document 형식을 만들고 거기에는 request.body 데이터를 넣음
